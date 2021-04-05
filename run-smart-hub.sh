@@ -13,5 +13,5 @@ fi
 . ./.env
 echo "Running smart-hub. Please wait a few moments..."
 (cd smart-hub && \
-  docker run -p"$PDG_SIDEBAND_SMART_HUB_PORT":8080 -it \
+  docker run -p"$PAZ_SIDEBAND_SMART_HUB_PORT":8080 -it \
   $(docker build -q .))

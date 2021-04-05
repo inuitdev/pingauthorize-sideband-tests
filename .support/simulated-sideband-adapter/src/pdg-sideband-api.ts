@@ -18,7 +18,7 @@ interface Jwk {
 }
 
 /**
- * HTTP headers in the format expected by PingDataGovernance Sideband API.
+ * HTTP headers in the format expected by PingAuthorize Sideband API.
  */
 export type Headers = { [name: string]: string }[];
 
@@ -34,7 +34,7 @@ interface HttpRequest extends HttpCommon {
 }
 
 /**
- * An HTTP response in the format expected by the PingDataGovernance Sideband API.
+ * An HTTP response in the format expected by the PingAuthorize Sideband API.
  */
 export interface HttpResponse extends HttpCommon {
     response_code: string;
@@ -49,14 +49,14 @@ interface InboundCommon extends HttpRequest {
 }
 
 /**
- * An inbound request for the PingDataGovernance Sideband API.
+ * An inbound request for the PingAuthorize Sideband API.
  */
 export interface InboundRequest extends InboundCommon {
     access_token?: AccessToken;
 }
 
 /**
- * An inbound response from the PingDataGovernance Sideband API.
+ * An inbound response from the PingAuthorize Sideband API.
  */
 export interface InboundResponse extends InboundCommon {
     state?: string;
@@ -64,13 +64,13 @@ export interface InboundResponse extends InboundCommon {
 }
 
 /**
- * An outbound request for the PingDataGovernance Sideband API.
+ * An outbound request for the PingAuthorize Sideband API.
  */
 export interface OutboundRequest extends HttpResponse, HttpRequest {
     request?: InboundRequest;
 }
 
 /**
- * An outbound response for the PingDataGovernance Sideband API.
+ * An outbound response for the PingAuthorize Sideband API.
  */
 export type OutboundResponse = HttpResponse;

@@ -22,7 +22,7 @@ export interface SimulatedSidebandAdapterConfig {
 }
 
 /**
- * A class that simulates a PingDataGovernance sideband adapter.
+ * A class that simulates a PingAuthorize sideband adapter.
  */
 export class SimulatedSidebandAdapter {
 
@@ -74,9 +74,9 @@ export class SimulatedSidebandAdapter {
     }
 
     /**
-     * Forwards an HTTP response from the PingDataGovernance Sideband API to the client.
+     * Forwards an HTTP response from the PingAuthorize Sideband API to the client.
      *
-     * @param sidebandHttpResponse The PingDataGovernance sideband http response.
+     * @param sidebandHttpResponse The PingAuthorize sideband http response.
      * @param clientResponse  The client response.
      */
     private forwardSidebandHttpResponse(sidebandHttpResponse: SidebandHttpResponse, clientResponse: ClientResponse): void {
@@ -106,7 +106,7 @@ export class SimulatedSidebandAdapter {
     }
 
     /**
-     * Processes an inbound sub response from PingDataGovernance.
+     * Processes an inbound sub response from PingAuthorize.
      *
      * @param inboundSubResponse The inbound sub response.
      * @param clientResponse  The client response.
@@ -210,12 +210,12 @@ export class SimulatedSidebandAdapter {
     }
 
     /**
-     * Sends a PingDataGovernance sideband request.
+     * Sends a PingAuthorize sideband request.
      *
      * @param type The request type.
      * @param message The message to send.
      * 
-     * @returns The fetch response from PingDataGovernance.
+     * @returns The fetch response from PingAuthorize.
      */
     private async callSidebandApi(type: 'request' | 'response',
         message: InboundSidebandRequest | OutboundSidebandRequest): Promise<SubResponse> {
@@ -230,7 +230,7 @@ export class SimulatedSidebandAdapter {
                 redirect: 'follow',
                 body: JSON.stringify(message)
             };
-            this.log.info(`Sending ${type === 'request' ? 'inbound' : 'outbound'} request to PingDataGovernance...`);
+            this.log.info(`Sending ${type === 'request' ? 'inbound' : 'outbound'} request to PingAuthorize...`);
             this.log.debug('fetchConfig', fetchConfig);
             return fetch(`${this.cfg.pdgBaseUrl}/sideband/${type}`, fetchConfig);
         }
@@ -258,14 +258,14 @@ export class SimulatedSidebandAdapter {
     }
 
     /**
-     * Applies headers received from PingDataGovernance to the client response.
+     * Applies headers received from PingAuthorize to the client response.
      *
-     * @param sidebandHeaders The headers received from the PingDataGovernance Sideband API.
+     * @param sidebandHeaders The headers received from the PingAuthorize Sideband API.
      * @param clientResponse  The client response.
      */
     private applySidebandHeaders(sidebandHeaders: SidebandHeaders, clientResponse: ClientResponse): void {
 
-        // The headers array coming from DG is an array of objects. Here we transform it to map of header names to joined strings
+        // The headers array coming from PAZ is an array of objects. Here we transform it to map of header names to joined strings
         const joinedHeaders = sidebandHeaders.reduce((acc, header) => {
             const name = Object.keys(header)[0];
             if (!this.shouldIgnoreResponseHeader(name)) {
@@ -282,7 +282,7 @@ export class SimulatedSidebandAdapter {
     }
 
     /**
-     * Converts client headers to the format expected by the PingDataGovernance Sideband API.
+     * Converts client headers to the format expected by the PingAuthorize Sideband API.
      * 
      * @param clientHeaders The client request headers.
      * 
@@ -299,7 +299,7 @@ export class SimulatedSidebandAdapter {
     }
 
     /**
-     * Converts sub response headers to the format expected by the PingDataGovernance Sideband API.
+     * Converts sub response headers to the format expected by the PingAuthorize Sideband API.
      *
      * @param subResponseHeaders The sub response headers.
      * 
@@ -312,7 +312,7 @@ export class SimulatedSidebandAdapter {
     }
 
     /**
-     * Converts headers from the PingDataGovernance Sideband API to sub request format.
+     * Converts headers from the PingAuthorize Sideband API to sub request format.
      *
      * @param sidebandHeaders The sideband headers.
      * 

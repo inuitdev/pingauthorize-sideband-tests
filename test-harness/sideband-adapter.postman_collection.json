@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "aa1ab8ca-f9a9-4a3c-bff4-0f7706831469",
-		"name": "PingDataGovernance - Sideband Adapter",
+		"name": "PingAuthorize - Sideband Adapter",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -39,7 +39,7 @@
 						"homes"
 					]
 				},
-				"description": "The test policies `DENY` client requests that are missing an `X-App-Id` header. This test makes a simple `GET` request with that header to make sure the sideband adapter correctly transforms client request headers when fetching inbound decisions from PingDataGovernance."
+				"description": "The test policies `DENY` client requests that are missing an `X-App-Id` header. This test makes a simple `GET` request with that header to make sure the sideband adapter correctly transforms client request headers when fetching inbound decisions from PingAuthorize."
 			},
 			"response": [
 				{
@@ -142,7 +142,7 @@
 						"devices"
 					]
 				},
-				"description": "The policies remove the `X-Powered-By` header returned by the backend API. This test retrieves a list of devices to make sure that the sideband adapter correctly relays response headers when requesting outbound decisions from PingDataGovernance."
+				"description": "The policies remove the `X-Powered-By` header returned by the backend API. This test retrieves a list of devices to make sure that the sideband adapter correctly relays response headers when requesting outbound decisions from PingAuthorize."
 			},
 			"response": []
 		},
@@ -198,7 +198,7 @@
 						}
 					]
 				},
-				"description": "The test policies convert incoming query strings to the format used by the backend application. A `?operator=contains&name=<FILTER>` should be transformed to `?co=<FILTER>`. This test ensures that the sideband adapter correctly transforms client query strings when requesting inbound decisions from PingDataGovernance."
+				"description": "The test policies convert incoming query strings to the format used by the backend application. A `?operator=contains&name=<FILTER>` should be transformed to `?co=<FILTER>`. This test ensures that the sideband adapter correctly transforms client query strings when requesting inbound decisions from PingAuthorize."
 			},
 			"response": []
 		},
@@ -315,7 +315,7 @@
 						"devices"
 					]
 				},
-				"description": "The test policies `DENY` modification requests (`POST`/`PUT`/`PATCH`) without an `audit` property. The backend API is unaware of this property and considers such requests invalid, so the policies remove the property before forwarding. This test checks that the sideband adapter correctly transforms a client request body (leaving the `audit` property intact) before making an inbound PingDataGovernance request."
+				"description": "The test policies `DENY` modification requests (`POST`/`PUT`/`PATCH`) without an `audit` property. The backend API is unaware of this property and considers such requests invalid, so the policies remove the property before forwarding. This test checks that the sideband adapter correctly transforms a client request body (leaving the `audit` property intact) before making an inbound PingAuthorize request."
 			},
 			"response": []
 		},
@@ -367,7 +367,7 @@
 						"{{known-control-id}}"
 					]
 				},
-				"description": "The test policies have a rule that `DENY` device control state changes when the `remaining` property has reached `0`, indicating that the number of calls have exceeded the daily limit. This test expects that policy rule to trigger thereby ensuring that the sideband adapter is correctly transforming backend response bodies when making outbound requests to PingDataGovernance."
+				"description": "The test policies have a rule that `DENY` device control state changes when the `remaining` property has reached `0`, indicating that the number of calls have exceeded the daily limit. This test expects that policy rule to trigger thereby ensuring that the sideband adapter is correctly transforming backend response bodies when making outbound requests to PingAuthorize."
 			},
 			"response": []
 		}

@@ -11,7 +11,7 @@ util.promisify(fs.readFile)(configFile)
     .then(content => content.toString())
     .then(JSON.parse)
     .then(cfg => Object.assign(cfg, {
-        requestContextMethod: process.env.PDG_SIDEBAND_REQUEST_CONTEXT_METHOD
+        requestContextMethod: process.env.PAZ_SIDEBAND_REQUEST_CONTEXT_METHOD
     }) as SimulatedSidebandAdapterConfig)
     .then(cfg => new SimulatedSidebandAdapter(cfg, console))
     .then(simulation => simulation.start())

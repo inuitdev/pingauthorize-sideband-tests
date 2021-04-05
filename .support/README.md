@@ -1,4 +1,4 @@
-# PingDataGovernance Sideband Test Environment Maintainer Guide
+# PingAuthorize Sideband Test Environment Maintainer Guide
 
 ## Overview
 
@@ -27,11 +27,11 @@ In addition to DropWizard, the project uses [lombok](https://projectlombok.org/)
 ## Policy changes
 
 The pdg-sideband-test-environment server profiles contain policies in two forms, a deployment package 
-([smart-hub.sdp](../server-profiles/pingdatagovernance/instance/smart-hub.sdp)) and a policy snapshot
-([smart-hub.snapshot](../server-profiles/pingdatagovernancepap/policies/smart-hub.snapshot)). To modify the policies,
-a maintainer will need an instance of the PingDataGovernance Policy Administration GUI. A `docker-compose.yml` file, 
-separate from the one in the project root, has been provided in this directory that includes pingdatagovernance, 
-pingdatagovernancepap, and pingdataconsole. The `env-template.txt` in this directory, which contains more environment 
+([smart-hub.sdp](../server-profiles/pingauthorize/instance/smart-hub.sdp)) and a policy snapshot
+([smart-hub.snapshot](../server-profiles/pingauthorizepap/policies/smart-hub.snapshot)). To modify the policies,
+a maintainer will need an instance of the PingAuthorize Policy Editor. A `docker-compose.yml` file, 
+separate from the one in the project root, has been provided in this directory that includes pingauthorize, 
+pingauthorizepap, and pingdataconsole. The `env-template.txt` in this directory, which contains more environment 
 variable definitions to configure those additional containers, should be copied to `.env` and modified before running 
 docker-compose.
 
@@ -41,20 +41,20 @@ vim .env
 docker-compose -f .support/docker-compose.yml up
 ```
 
-When the containers show a healthy state, you can examine the PingDataGovernance configuration by logging into the    
+When the containers show a healthy state, you can examine the PingAuthorize configuration by logging into the    
 PingData Console [https://localhost:5443/console/](https://localhost:5443/console/) with the following information:    
     
    | PingDataConsole `Server`     | Username      | Password      |    
    | ---------------------------- | ------------- | ------------- |    
-   | pingdatagovernance:636       | administrator | 2FederateM0re |
+   | pingauthorize:1636           | administrator | 2FederateM0re |
 
-You will want to update the pingdatagovernance container to use external PDP mode. This can either be done using the 
+You will want to update the pingauthorize container to use external PDP mode. This can either be done using the 
 PingData Console, or using the following Docker command:
 
 ```bash
-docker exec pingdatagovernance /opt/out/instance/bin/dsconfig --no-prompt set-policy-decision-service-prop \
+docker exec pingauthorize /opt/out/instance/bin/dsconfig --no-prompt set-policy-decision-service-prop \
     --set pdp-mode:external  \
-    --set "policy-server:Policy Administration GUI" 
+    --set "policy-server:Policy Editor" 
 ```
 
 When bringing the containers down, don't forget to use the same `docker-compose.yml` file so that docker-compose will
@@ -67,9 +67,9 @@ docker-compose -f .support/docker-compose.yml down
 ## Data generation
 
 The smart-hub-application project expects a `hub.json` file, which contains the backing data for the smart-home. In
-addition, the ExampleTokenResourceLookupMethod used in the pingdatagovernance server profile requires a JSON file
+addition, the ExampleTokenResourceLookupMethod used in the pingauthorize server profile requires a JSON file
 mapping usernames (or in our case, UUIDs) to arbitrary user-attribute JSON objects. This file is in
-[users.json](../server-profiles/pingdatagovernance/instance/users.json). Generally, you should not 
+[users.json](../server-profiles/pingauthorize/instance/users.json). Generally, you should not 
 regenerate these JSON files because the regeneration process produces random data, which will affect documented 
 expected values of test scenarios.  However, there might be a need to regenerate the data.
 
