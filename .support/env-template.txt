@@ -1,24 +1,24 @@
 # To override the default server ports, copy this file to .env and edit the variables below.
-PDG_SIDEBAND_CONSOLE_PORT=5443
-PDG_SIDEBAND_SMART_HUB_PORT=6443
-PDG_SIDEBAND_DG_PORT=7443
-PDG_SIDEBAND_PAP_PORT=8443
+PAZ_SIDEBAND_CONSOLE_PORT=5443
+PAZ_SIDEBAND_SMART_HUB_PORT=6443
+PAZ_SIDEBAND_PAZ_PORT=7443
+PAZ_SIDEBAND_PAP_PORT=8443
 
-# If accessing the Policy Administration GUI using a hostname other than "localhost" modify the environment variable
+# If accessing the Policy Editor using a hostname other than "localhost" modify the environment variable
 # below to pass browser CORS checks.
-PDG_SIDEBAND_PAP_HOSTNAME=localhost
+PAZ_SIDEBAND_PAP_HOSTNAME=localhost
 
-# To view example Sideband API request/responses, set the below value to the PingDataGovernance Sideband API host
+# To view example Sideband API request/responses, set the below value to the PingAuthorize Sideband API host
 # before running ./run-test-harness sideband-api-request-examples where the host is reachable.
-PDG_SIDEBAND_DG_HOST=localhost
+PAZ_SIDEBAND_PAZ_HOST=localhost
 
 # When ready to use the provided test harness against a working sideband adapter/API gateway implementation, use the
 # following environment variable to point the test harness to the base URL of the API gateway.
-PDG_SIDEBAND_TEST_HARNESS_BASE_URL=https://localhost:9443
+PAZ_SIDEBAND_TEST_HARNESS_BASE_URL=http://localhost:8080
 
-# When sideband adapters make the /sideband/response call, the PingDataGovernance Server can be configured to accept
+# When sideband adapters make the /sideband/response call, the PingAuthorize Server can be configured to accept
 # request context data in different ways, enabling support for API gateways with different capability sets. The
-# following environment variable is used by the PingDataGovernance server as the value for request-context-method.
+# following environment variable is used by the PingAuthorize server as the value for request-context-method.
 # Use the following guidelines when selecting a value for request-context-method.
 #
 #  - Use "state" if the API gateway and sideband adapter support relaying data from the response from /sideband/request
@@ -30,17 +30,17 @@ PDG_SIDEBAND_TEST_HARNESS_BASE_URL=https://localhost:9443
 #    Under these circumstances, policy writers will need to be aware that request data will not be available on outbound
 #    policies.
 #
-PDG_SIDEBAND_REQUEST_CONTEXT_METHOD=state
+PAZ_SIDEBAND_REQUEST_CONTEXT_METHOD=state
 
 # See https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
 # on how to generate a GitHub personal access token.
-PDG_SIDEBAND_GIT_USER=<git_user>
-PDG_SIDEBAND_GIT_TOKEN=<git_token>
-PDG_SIDEBAND_GIT_URL=gitlab.corp.pingidentity.com/PingDirectory/pdg-sideband-test-environment.git
+PAZ_SIDEBAND_GIT_USER=<git_user>
+PAZ_SIDEBAND_GIT_TOKEN=<git_token>
+PAZ_SIDEBAND_GIT_URL=gitlab.corp.pingidentity.com/PingDirectory/pdg-sideband-test-environment.git
 
-PDG_SIDEBAND_PROFILE_URL=https://${PDG_SIDEBAND_GIT_USER}:${PDG_SIDEBAND_GIT_TOKEN}@${PDG_SIDEBAND_GIT_URL}
-PDG_SIDEBAND_PROFILE_BRANCH=main
+PAZ_SIDEBAND_PROFILE_URL=https://${PAZ_SIDEBAND_GIT_USER}:${PAZ_SIDEBAND_GIT_TOKEN}@${PAZ_SIDEBAND_GIT_URL}
+PAZ_SIDEBAND_PROFILE_BRANCH=8.3
 
-PDG_SIDEBAND_DEVOPS_REGISTRY=docker.io/pingidentity
-PDG_SIDEBAND_DEVOPS_TAG=edge
+PAZ_SIDEBAND_DEVOPS_REGISTRY=docker.io/pingidentity
+PAZ_SIDEBAND_DEVOPS_TAG=8.3.0.0-EA-edge
 

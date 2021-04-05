@@ -1,6 +1,6 @@
 # Simulated Sideband Adapter
 
-This contains a NodeJS application that simulates a PingDataGovernance Sideband API consumer adapter.
+This contains a NodeJS application that simulates a PingAuthorize Sideband API consumer adapter.
 
 ## Prerequisites
 
@@ -8,7 +8,7 @@ This contains a NodeJS application that simulates a PingDataGovernance Sideband 
 
 ## Usage
 
-Make sure [PingDataGovernance](../../docker-compose.yml) and the ['smart-hub-application'](../../smart-hub-application)
+Make sure [PingAuthorize](../../docker-compose.yml) and the ['smart-hub-application'](../../smart-hub-application)
 are both running and reachable.
 
 Modify `assets/config.json` if needed. Then run the following commands from the root of the NodeJS application.

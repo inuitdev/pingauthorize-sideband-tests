@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "99826cb7-1b3b-432d-a2c4-a0fbd1fda67b",
-		"name": "PingDataGovernance - Sideband API Request Examples",
+		"name": "PingAuthorize - Sideband API Request Examples",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -904,7 +904,7 @@
 				"exec": [
 					"const { Property } = require('postman-collection');",
 					"",
-					"// Construct the base URL for PingDataGovernance",
+					"// Construct the base URL for PingAuthorize",
 					"const dgPort = pm.variables.get('dg-port');",
 					"const dgHost = pm.variables.get('dg-host');",
 					"pm.variables.set(\"pdg-base-url\", dgPort === 443 ? `https://${dgHost}` : `https://${dgHost}:${dgPort}`)",

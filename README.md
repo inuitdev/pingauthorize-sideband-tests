@@ -1,9 +1,9 @@
-# PingDataGovernance sideband test environment
+# PingAuthorize sideband test environment
 
-This repository contains source files to help sideband adapter developers create custom PingDataGovernance
+This repository contains source files to help sideband adapter developers create custom PingAuthorize
 sideband adapters for their custom API gateway environments.
 
-A correctly implemented PingDataGovernance sideband adapter communicates with PingDataGovernance in sideband mode
+A correctly implemented PingAuthorize sideband adapter communicates with PingAuthorize in sideband mode
 and uses the responses to indicate to its API gateway what (if anything) it should forward to the
 backend REST API application.
 
@@ -17,10 +17,10 @@ The above diagram will be referenced throughout this document.
 
 This repository provides the following:
 
-* A [PingDataGovernance Server](#pingdatagovernance-sideband-api) fully-configured for Sideband API mode
+* A [PingAuthorize Server](#pingauthorize-sideband-api) fully-configured for Sideband API mode
 * An example backend [REST API application](#smart-hub) with production-like data simulating a smart device API (smart-hub)
-* A user data store, shared by the smart-hub application and the PingDataGovernance Server
-* Pre-configured PingDataGovernance policies written for the user data store and the smart device API
+* A user data store, shared by the smart-hub application and the PingAuthorize Server
+* Pre-configured PingAuthorize policies written for the user data store and the smart device API
 * A [Test harness](#test-harness) which uses a Postman collection for automated testing of a sideband adapter implementation
 
 ## Prerequisites
@@ -36,7 +36,7 @@ This repository provides the following:
 
 A sideband adapter developer should:
 
-1. Read the [PingDataGovernance Sideband Integration Guide](https://docs.google.com/document/d/1hb3u6sfm8LWM9B_MqSD0ncOTSb0NgTW-tKWG1OLCOVA/edit?usp=sharing)
+1. Read the [PingAuthorize Sideband Integration Guide](https://docs.google.com/document/d/1hb3u6sfm8LWM9B_MqSD0ncOTSb0NgTW-tKWG1OLCOVA/edit?usp=sharing)
    and review the [sideband message map](#sideband-message-map).
 
 2. Understand how the different components work together and communicate.
@@ -47,7 +47,7 @@ A sideband adapter developer should:
    See the [Configuration](#configuration) section for more details.
 
 5. Begin developing the sideband adapter to implement the sideband message map. This involves sending HTTP subrequests
-   to the PingDataGovernance Sideband API. Example requests/responses are found in the integration guide.
+   to the PingAuthorize Sideband API. Example requests/responses are found in the integration guide.
    See also the [live example request/responses](#sideband-api-request-examples) specifically for the smart-hub
    application and test policies.
 
@@ -63,7 +63,7 @@ policies in the organization's test environment.
 
 ## Running the components
 
-This repository allows sideband adapter developers to deploy both PingDataGovernance and the smart-hub REST API application
+This repository allows sideband adapter developers to deploy both PingAuthorize and the smart-hub REST API application
 to different hosts/networks to simulate more production-like environments. The following sections describe how to run
 these components.
 
@@ -77,18 +77,18 @@ To change the default values, copy the provided `env-template.txt` file to `.env
 
 | Environment variable                    | Default value          | Description                                                                                                         |
 | --------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| PDG\_SIDEBAND\_SMART\_HUB\_PORT         | 6443                   | The smart-hub REST API port.                                                                                        |
-| PDG\_SIDEBAND\_DG\_PORT                 | 7443                   | The PingDataGovernance Server port.                                                                                 |
-| PDG\_SIDEBAND\_DG\_HOST                 | localhost              | The PingDataGovernance Server host for displaying [live example request/responses](#sideband-api-request-examples). |
-| PDG\_SIDEBAND\_TEST\_HARNESS\_BASE\_URL | https://localhost:9443 | The base URL that the test harness should use when executing tests.                                                 |
-| PDG\_SIDEBAND\_REQUEST\_CONTEXT\_METHOD | state                  | The [request-context-method](#request-context-method) value supported by the API gateway.                           |
+| PAZ\_SIDEBAND\_SMART\_HUB\_PORT         | 6443                   | The smart-hub REST API port.                                                                                        |
+| PAZ\_SIDEBAND\_PAZ\_PORT                 | 7443                   | The PingAuthorize Server port.                                                                                 |
+| PAZ\_SIDEBAND\_PAZ\_HOST                 | localhost              | The PingAuthorize Server host for displaying [live example request/responses](#sideband-api-request-examples). |
+| PAZ\_SIDEBAND\_TEST\_HARNESS\_BASE\_URL | https://localhost:9443 | The base URL that the test harness should use when executing tests.                                                 |
+| PAZ\_SIDEBAND\_REQUEST\_CONTEXT\_METHOD | state                  | The [request-context-method](#request-context-method) value supported by the API gateway.                           |
 
 > :warning: **When deploying components to different hosts**, be sure that each host has a cloned repository, and that
 > each has a correct `.env` file, consistent with the other hosts.
 
-### PingDataGovernance Sideband API
+### PingAuthorize Sideband API
 
-The docker-compose environment provided in this repository configures a PingDataGovernance Server in Sideband API mode.
+The docker-compose environment provided in this repository configures a PingAuthorize Server in Sideband API mode.
 This section describes how to bring up the environment after having cloned the repository to the desired host.
 
 #### Bringing up the environment
@@ -100,7 +100,7 @@ This section describes how to bring up the environment after having cloned the r
    vi .env
    ```
 
-2. Use `docker-compose` from the project root to bring up the PingDataGovernance Sideband API.
+2. Use `docker-compose` from the project root to bring up the PingAuthorize Sideband API.
 
    ```bash
    docker-compose up --detach
@@ -116,7 +116,7 @@ This section describes how to bring up the environment after having cloned the r
 #### Bringing down the environment
 
 1. To stop and remove the containers, run the following command. Note that removing the containers clears any changes
-   you made to the PingDataGovernance configuration.
+   you made to the PingAuthorize configuration.
 
    ```bash
    docker-compose down
@@ -172,7 +172,7 @@ the `run-test-harness.sh` script. Details and instructions are provided in the s
 
 The
 [sideband-api-request-examples.postman_collection.json](./test-harness/sideband-api-request-examples.postman_collection.json)
-simulates the requests that a sideband adapter would make against the PingDataGovernance Sideband API. This serves two
+simulates the requests that a sideband adapter would make against the PingAuthorize Sideband API. This serves two
 purposes:
 
 * It provides sample request/responses to a sideband adapter developer.
@@ -180,7 +180,7 @@ purposes:
 
 To run this collection, complete these steps:
 
-1. Ensure the PingDataGovernance Sideband API is running.
+1. Ensure the PingAuthorize Sideband API is running.
 
 2. Copy the `env-template.txt` file to `.env`, and modify the values if you have not already done so.
 
@@ -230,7 +230,7 @@ To run this collection, complete these steps:
    ```
 
 There are two folders in the request examples, which correspond to the two methods that [access
-tokens](#access-token-validation) are provided to the PingDataGovernance Sideband API. The first folder, "Authorization
+tokens](#access-token-validation) are provided to the PingAuthorize Sideband API. The first folder, "Authorization
 Header", contains example requests with the access token represented as an Authorization header. The second folder,
 "Access Token Property", contains example requests where the access token is provided pre-parsed by the sideband
 adapter in the `access_token` JSON property.
@@ -242,7 +242,7 @@ Postman collection and test harness provided in this repository to validate thei
 developer must first configure their API gateway to proxy an instance of the [smart-hub application](#smart-hub). 
 Please consult the API gateway documentation for how to do this, as instructions are specific to each API gateway.
 The sideband adapter should use the `/sideband/request` and `/sideband/response` endpoints from the 
-[PingDataGovernance Sideband API](#pingdatagovernance-sideband-api) in this repository.
+[PingAuthorize Sideband API](#pingauthorize-sideband-api) in this repository.
 
 To run the test harness, complete these steps:
 
@@ -271,7 +271,7 @@ To run the test harness, complete these steps:
      │  that header to make sure the sideband adap
      │ ter correctly transforms client request hea
      │ ders when fetching inbound decisions from P
-     │ ingDataGovernance.'
+     │ ingAuthorize.'
      └
      GET http://localhost:8080/homes [200 OK, 4.8KB, 304ms]
      ✓  Response is valid JSON
@@ -284,20 +284,20 @@ To run the test harness, complete these steps:
 ## Viewing logs and troubleshooting
 
 View the HTTP request/responses 2, 3, 6, and 7 from the
-[PingDataGovernance Server debug-trace logs](#pingdatagovernance-server-debug-trace-logs).
+[PingAuthorize Server debug-trace logs](#pingauthorize-server-debug-trace-logs).
 View request/responses 4 and 5 from the [smart-hub application console](#smart-hub-logs).
 View the client request/response 1 and 8 either on the client side, or on the API gateway/sideband
 adapter side. Consult the documentation for the specific client or API gateway for instructions.
 
-### PingDataGovernance Server debug-trace logs
+### PingAuthorize Server debug-trace logs
 
-The PingDataGovernance Server configured in this repository has multiple log sinks that you can examine while
+The PingAuthorize Server configured in this repository has multiple log sinks that you can examine while
 troubleshooting. Use the Debug Trace Logger to view the full HTTP requests and responses handled by the 
-PingDataGovernance Sideband API. The following command tails the debug-trace logs within the pingdatagovernance Docker
+PingAuthorize Sideband API. The following command tails the debug-trace logs within the pingauthorize Docker
 container:
 
 ```bash
-docker exec -it pingdatagovernance tail -f /opt/out/instance/logs/debug-trace
+docker exec -it pingauthorize tail -f /opt/out/instance/logs/debug-trace
 ```
 
 When the sideband adapter makes subrequests 2 and 6, 
@@ -305,7 +305,7 @@ those HTTP requests and the responses 3 and 7 are logged here.  The following is
 for a subrequest 2 to `/sideband/request`.
 
 ```
-[02/Dec/2020:19:46:51.472 +0000] DEBUG HTTP-FULL-REQUEST-AND-RESPONSE requestID=212 correlationID="257c628c-d7bc-4f0e-b9d1-5669c22d96aa" accessTokenId="" product="Ping Identity Data Governance Server" instanceName="518b86fcb223" startupID="X8fZDA==" threadID=122 from=172.23.0.1:57404 method=POST url="https://172.23.0.2:443/sideband/request" statusCode=200 etime=222.647 responseContentLength=1573 msg="
+[02/Dec/2020:19:46:51.472 +0000] DEBUG HTTP-FULL-REQUEST-AND-RESPONSE requestID=212 correlationID="257c628c-d7bc-4f0e-b9d1-5669c22d96aa" accessTokenId="" product="Ping Identity Authorize Server" instanceName="518b86fcb223" startupID="X8fZDA==" threadID=122 from=172.23.0.1:57404 method=POST url="https://172.23.0.2:443/sideband/request" statusCode=200 etime=222.647 responseContentLength=1573 msg="
  Request Headers:
   PDG-TOKEN: 5e96eaf6-251e-4555-9434-d1b224f05e99
   Accept: application/json
@@ -331,11 +331,11 @@ for a subrequest 2 to `/sideband/request`.
 ```
 
 These and similar log entries for `/sideband/response` can indicate issues with the sideband adapter's ability to
-generate subrequests for the PingDataGovernance Sideband API.
+generate subrequests for the PingAuthorize Sideband API.
 
 ### smart-hub logs
 
-The smart-hub application, similar to PingDataGovernance, logs full requests and responses to the console. An example
+The smart-hub application, similar to PingAuthorize, logs full requests and responses to the console. An example
 request/response for a PATCH to a control is displayed below.
 
 ```
@@ -364,7 +364,7 @@ INFO  [2020-12-02 19:45:53,946] org.glassfish.jersey.logging.LoggingFeature: 7 *
 
 ### Shared secret
 
-To access the PingDataGovernance Server in sideband mode, a sideband adapter must provide a configurable shared
+To access the PingAuthorize Server in sideband mode, a sideband adapter must provide a configurable shared
 secret through an HTTP header (`PDG-TOKEN`). The sideband test environment is pre-configured with three of them. One is enabled
 at start.
 
@@ -379,7 +379,7 @@ To rotate the shared secret in the `docker-compose` environment, use a command l
 sideband-secret-1 and enables sideband-secret-2:
 
 ```bash
-docker exec pingdatagovernance /opt/out/instance/bin/dsconfig --no-prompt set-http-servlet-extension-prop \
+docker exec pingauthorize /opt/out/instance/bin/dsconfig --no-prompt set-http-servlet-extension-prop \
   --extension-name "Sideband API" \
   --set shared-secrets:sideband-secret-2
 ```
@@ -387,9 +387,9 @@ docker exec pingdatagovernance /opt/out/instance/bin/dsconfig --no-prompt set-ht
 ### Request context method
 
 In messages 6 and 7, the sideband adapter retrieves the outbound policy decision from the
-PingDataGovernance Sideband API. Depending on an organization's data governance business needs, an outbound policy 
+PingAuthorize Sideband API. Depending on an organization's data governance business needs, an outbound policy 
 might require data generated earlier in the client request lifecycle. However, some API gateways are not 
-capable of maintaining data across subrequests. To handle different API gateway limitations, the PingDataGovernance 
+capable of maintaining data across subrequests. To handle different API gateway limitations, the PingAuthorize 
 Sideband API has a configuration attribute called `request-context-method`, which can have one of three different
 values, each of which is outlined in the table below. The pre-configured value in `env-template.txt` is `state`.
 
@@ -406,15 +406,15 @@ notified that outbound policies will not have that data available.
 
 After you decide on a `request-context-method`, a sideband adapter developer can control the value configured in the
 sideband test environment by modifying their `.env` file in the root of this repository. The value
-`PDG_SIDEBAND_REQUEST_CONTEXT_METHOD` is consumed by the PingDataGovernance Server docker-compose environment and the
+`PAZ_SIDEBAND_REQUEST_CONTEXT_METHOD` is consumed by the PingAuthorize Server docker-compose environment and the
 test harness, which skips related tests if the value is set to `none`.
 
 ### Access token validation
 
-The PingDataGovernance Sideband API accepts OAuth 2 access tokens in two ways:
+The PingAuthorize Sideband API accepts OAuth 2 access tokens in two ways:
 
 * As an Authorization header
-  PingDataGovernance performs the access token validation and parsing.
+  PingAuthorize performs the access token validation and parsing.
 
 * As pre-parsed JSON
   An upstream component of the API gateway/sideband adapter performs the validation and parsing.
@@ -426,7 +426,7 @@ one Access Token Validator type.
 When developing a sideband adapter, if your environment performs access token validation and provides a way for the
 adapter to obtain the parsed access token, the second option results in less HTTP communication and processing. Keep in mind
 though, that even if the environment supports that capability, a particular deployment may wish to delegate
-authentication entirely to DG, which would require using the first option.
+authentication entirely to PingAuthorize, which would require using the first option.
 
 ### Postman collection coverage
 
@@ -439,8 +439,8 @@ inspect HTTP request 8 for expected values, which indicate that the system is wo
 * Make sure that your sideband adapter is configurable on a per-environment basis. At a minimum, this means being able to
   configure the following items:
 
-  * The PingDataGovernance Sideband API base URL
-  * The PingDataGovernance Sideband API shared secret (for example the `PDG-TOKEN` request header value)
+  * The PingAuthorize Sideband API base URL
+  * The PingAuthorize Sideband API shared secret (for example the `PDG-TOKEN` request header value)
   * The backend REST API base URL
 
 * The API gateway/sideband adapter should remove or overwrite response headers appropriately. Some response headers,

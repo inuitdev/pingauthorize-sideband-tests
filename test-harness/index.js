@@ -2,12 +2,12 @@ const newman = require('newman');
 
 const collectionName = process.argv[2] || 'sideband-adapter';
 
-// Add all UNIX environment variables starting with "PDG_SIDEBAND_",
+// Add all UNIX environment variables starting with "PAZ_SIDEBAND_",
 // but convert them to use hyphens and lowercase.
 const envVar = Object.keys(process.env)
-  .filter(key => key.startsWith('PDG_SIDEBAND_'))
+  .filter(key => key.startsWith('PAZ_SIDEBAND_'))
   .map(key => ({ 
-    key: key.replace(/^PDG_SIDEBAND_/, '').replace(/_/g, '-').toLowerCase(),
+    key: key.replace(/^PAZ_SIDEBAND_/, '').replace(/_/g, '-').toLowerCase(),
     value: process.env[key]
   }))
   .reduce((acc, keyValueObject) => acc.concat([ keyValueObject ]), []);
